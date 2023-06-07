@@ -1,10 +1,9 @@
 const { expect, assert } = require("chai")
 const { ethers, upgrades } = require("hardhat")
 
-describe("ONFT721Upgradeable: ", function () {
+describe.only("ONFT721Upgradeable: ", function () {
     const chainId_A = 1
     const chainId_B = 2
-    const minGasToStore = 150000
     const name = "OmnichainNonFungibleToken"
     const symbol = "ONFT"
     const defaultAdapterParams = ethers.utils.solidityPack(["uint16", "uint256"], [1, 200000])
@@ -23,8 +22,8 @@ describe("ONFT721Upgradeable: ", function () {
         lzEndpointMockB = await LZEndpointMock.deploy(chainId_B)
 
         // generate a proxy to allow it to go ONFT
-        ONFT_A = await upgrades.deployProxy(ONFT721, [name, symbol, minGasToStore, lzEndpointMockA.address])
-        ONFT_B = await upgrades.deployProxy(ONFT721, [name, symbol, minGasToStore, lzEndpointMockB.address])
+        ONFT_A = await upgrades.deployProxy(ONFT721, [name, symbol, lzEndpointMockA.address])
+        ONFT_B = await upgrades.deployProxy(ONFT721, [name, symbol, lzEndpointMockB.address])
 
         // wire the lz endpoints to guide msgs back and forth
         lzEndpointMockA.setDestLzEndpoint(ONFT_B.address, lzEndpointMockB.address)
