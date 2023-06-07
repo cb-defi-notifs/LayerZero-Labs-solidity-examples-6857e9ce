@@ -12,8 +12,8 @@ interface IONFT721CoreUpgradeable is IERC165Upgradeable {
      * @dev Emitted when `_tokenIds[]` are moved from the `_sender` to (`_dstChainId`, `_toAddress`)
      * `_nonce` is the outbound nonce from
      */
-    event SendToChain(uint16 indexed _dstChainId, address indexed _from, bytes indexed _toAddress, uint[] _tokenIds);
-    event ReceiveFromChain(uint16 indexed _srcChainId, bytes indexed _srcAddress, address indexed _toAddress, uint[] _tokenIds);
+    event SendToChain(uint16 indexed _dstChainId, address indexed _from, bytes indexed _toAddress, uint _tokenId);
+    event ReceiveFromChain(uint16 indexed _srcChainId, bytes indexed _srcAddress, address indexed _toAddress, uint _tokenId);
 
     /**
      * @dev Emitted when `_payload` was received from lz, but not enough gas to deliver all tokenIds
@@ -37,7 +37,7 @@ interface IONFT721CoreUpgradeable is IERC165Upgradeable {
      * `_zroPaymentAddress` set to address(0x0) if not paying in ZRO (LayerZero Token)
      * `_adapterParams` is a flexible bytes array to indicate messaging adapter services
      */
-    function sendBatchFrom(address _from, uint16 _dstChainId, bytes calldata _toAddress, uint[] calldata _tokenIds, address payable _refundAddress, address _zroPaymentAddress, bytes calldata _adapterParams) external payable;
+//    function sendBatchFrom(address _from, uint16 _dstChainId, bytes calldata _toAddress, uint[] calldata _tokenIds, address payable _refundAddress, address _zroPaymentAddress, bytes calldata _adapterParams) external payable;
 
     /**
      * @dev estimate send token `_tokenId` to (`_dstChainId`, `_toAddress`)
@@ -56,5 +56,5 @@ interface IONFT721CoreUpgradeable is IERC165Upgradeable {
      * _useZro - indicates to use zro to pay L0 fees
      * _adapterParams - flexible bytes array to indicate messaging adapter services in L0
      */
-    function estimateSendBatchFee(uint16 _dstChainId, bytes calldata _toAddress, uint[] calldata _tokenIds, bool _useZro, bytes calldata _adapterParams) external view returns (uint nativeFee, uint zroFee);
+//    function estimateSendBatchFee(uint16 _dstChainId, bytes calldata _toAddress, uint[] calldata _tokenIds, bool _useZro, bytes calldata _adapterParams) external view returns (uint nativeFee, uint zroFee);
 }
